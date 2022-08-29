@@ -1,25 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Diagram from './Diagram';
+import DimensionInput from './DimensionInput';
+import Elements from './Elements';
+import Rays from './Rays';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+        Thin Lens Paraxial Ray Tracer
+        <DimensionInput />
+      </div>
+      <Diagram />
+      <Rays />
+      <Elements />
+    </>
   );
 }
 
