@@ -4,24 +4,38 @@ import { dimensions } from './store'
 
 const DimensionInput = () => {
   const [dims, setDims] = useRecoilState(dimensions)
-  const [z, setZ] = useState(dims.z_max)
-  const [y, setY] = useState(dims.y_max)
+  const [zValid, setZValid] = useState(true)
+  const [yValid, setYValid] = useState(true)
+  const [z, setZ] = useState(dims.z_max.toString())
+  const [y, setY] = useState(dims.y_max.toString())
 
   const onUpdateZ = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newZ = parseInt(e.target.value)
-    if (!isNaN(newZ)) setZ(Math.abs(newZ))
+    const newZ = Math.abs(parseInt(e.target.value))
+    if (isNaN(newZ)) {
+      setZValid(false)
+      setZ(e.target.value)
+    } else {
+      setZValid(true)
+      setZ(newZ.toString())
+    }
   }
 
   const onUpdateY = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newY = parseInt(e.target.value)
-    if (!isNaN(newY)) setY(Math.abs(newY))
+    const newY = Math.abs(parseInt(e.target.value))
+    if (isNaN(newY)) {
+      setYValid(false)
+      setY(e.target.value)
+    } else {
+      setYValid(true)
+      setY(newY.toString())
+    }
   }
 
   const onSubmitChanges = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setDims({
-      z_max: z,
-      y_max: y,
+      z_max: parseInt(z),
+      y_max: parseInt(y),
     })
   }
 
@@ -35,7 +49,7 @@ const DimensionInput = () => {
         y_maximum:
         <input value={y} onChange={onUpdateY}/>
       </label>
-      <input type='submit' value='Set'/>
+      <input type='submit' value='Set' disabled={!(zValid && yValid)}/>
     </form>
   )
 }
