@@ -13,7 +13,7 @@ export interface Ray {
   y_initial: number,
   angle: number,
   color: string,
-  name?: string,
+  name: string,
 }
 
 export interface StackElement {

@@ -12,8 +12,8 @@ const CANVAS_WIDTH = window.innerWidth - 36
 const CANVAS_HEIGHT = 400
 
 const Diagram = () => {
-  const [cmp, _] = useRecoilState(components)
-  const [dims, __] = useRecoilState(dimensions)
+  const [cmp] = useRecoilState(components)
+  const [dims] = useRecoilState(dimensions)
   const rayProp = useRecoilValue(rayPropagation)
 
   const z2c = (z: number) => z * CANVAS_WIDTH / dims.z_max

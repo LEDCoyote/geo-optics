@@ -1,47 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useRecoilState } from 'recoil'
+import RayEditor, { RayEditState } from './RayEditor'
 import { Ray, rays } from './store'
 
 const Rays = () => {
   const [rs, setRs] = useRecoilState(rays)
-  const [rsTemp, setRsTemp] = useState(rs)
   const [newRayName, setNewRayName] = useState('newRay')
 
-  useEffect(() => {
-    setRsTemp(rs)
-  }, [rs])
-
-  const updateRayTempY = (e: React.ChangeEvent<HTMLInputElement>, ray: Ray) => {
-    const index = rsTemp.findIndex((r) => r.name === ray.name)
-    const newRsTemp = [...rsTemp]
-    newRsTemp[index] = {...newRsTemp[index], y_initial: parseInt(e.target.value)}
-    setRsTemp(newRsTemp)
-  }
-
-  const updateRayTempA = (e: React.ChangeEvent<HTMLInputElement>, ray: Ray) => {
-    const index = rsTemp.findIndex((r) => r.name === ray.name)
-    const newRsTemp = [...rsTemp]
-    newRsTemp[index] = {...newRsTemp[index], angle: parseFloat(e.target.value)}
-    setRsTemp(newRsTemp)
-  }
-
-  const updateRayTempC = (e: React.ChangeEvent<HTMLInputElement>, ray: Ray) => {
-    const index = rsTemp.findIndex((r) => r.name === ray.name)
-    const newRsTemp = [...rsTemp]
-    newRsTemp[index] = {...newRsTemp[index], color: e.target.value}
-    setRsTemp(newRsTemp)
-  }
-
-  const editRay = (e: React.FormEvent<HTMLFormElement>, ray: Ray) => {
-    e.preventDefault()
-    const index = rs.findIndex((r) => r.name === ray.name)
+  const editRay = (edits: RayEditState) => {
+    const index = rs.findIndex((r) => r.name === edits.name)
+    const newRay: Ray = {
+      ...rs[index],
+      y_initial: parseInt(edits.y),
+      angle: parseFloat(edits.angle),
+      color: edits.color,
+    }
     const newRs = [...rs]
-    newRs[index] = ray
+    newRs[index] = newRay
     setRs(newRs)
   }
 
-  const deleteRay = (e: React.MouseEvent<HTMLButtonElement>, ray: Ray) => {
-    e.preventDefault()
+  const deleteRay = (ray: Ray) => {
     const index = rs.findIndex((r) => r.name === ray.name)
     const newRs = [...rs]
     newRs.splice(index, 1)
@@ -67,35 +46,16 @@ const Rays = () => {
   return (
     <>
       <div>Rays:</div>
-      {rsTemp.map((r) => {
+      {rs.map((r) => {
         return (
-          <form key={r.name} onSubmit={(e) => editRay(e, r)}>
-            <label>
-              name:
-              <input value={r.name} readOnly={true}/>
-            </label>
-            <label>
-              y_initial:
-              <input value={r.y_initial} onChange={(e) => updateRayTempY(e, r)}/>
-            </label>
-            <label>
-              angle:
-              <input value={r.angle} onChange={(e) => updateRayTempA(e, r)}/>
-            </label>
-            <label>
-              color:
-              <input value={r.color} onChange={(e) => updateRayTempC(e, r)}/>
-            </label>
-            <input type='submit' value='Set'/>
-            <button onClick={(e) => deleteRay(e,r)}>Delete</button>
-          </form>
+          <RayEditor ray={r} onSubmitEdit={editRay} onDeleteRay={deleteRay}/>
         )
       })}
       <form onSubmit={addRay}>
         <label>
           new_ray_name:
           <input value={newRayName} onChange={(e) => setNewRayName(e.target.value)}/>
-          <input type='submit' value='Add'/>
+          <input type='submit' value='Add' disabled={rs.findIndex((r) => r.name === newRayName) !== -1}/>
         </label>
       </form>
     </>

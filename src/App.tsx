@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <div>
-        Thin Lens Paraxial Ray Tracer
+        Thin Lens Paraxial Ray Trace
         <DimensionInput />
       </div>
       <Diagram />
