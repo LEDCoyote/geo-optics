@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
-  components,
+  elements,
   dimensions,
   rayPropagation,
 } from './store'
@@ -12,7 +12,7 @@ export const CANVAS_WIDTH = window.innerWidth - 36
 export const CANVAS_HEIGHT = 400
 
 const Diagram = () => {
-  const [cmp] = useRecoilState(components)
+  const [cmp] = useRecoilState(elements)
   const [dims] = useRecoilState(dimensions)
   const rayProp = useRecoilValue(rayPropagation)
 

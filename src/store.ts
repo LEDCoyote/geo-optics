@@ -1,10 +1,10 @@
 import { atom, selector } from 'recoil'
 
-export interface Component {
+export interface Element {
   z_position: number,
   y_height: number,
   power: number,
-  name?: string,
+  name: string,
 }
 
 export interface Ray {
@@ -16,7 +16,7 @@ export interface Ray {
   name: string,
 }
 
-export interface StackElement {
+export interface StackItem {
   power: number,
   z_length: number,
   y_stop_height: number,
@@ -30,8 +30,8 @@ export const dimensions = atom({
   },
 })
 
-export const components = atom<Component[]>({
-  key: 'components',
+export const elements = atom<Element[]>({
+  key: 'elements',
   default: [
     {
       z_position: 500,
@@ -73,11 +73,11 @@ export const rays = atom<Ray[]>({
   }],
 })
 
-export const stack = selector<StackElement[]>({
+export const stack = selector<StackItem[]>({
   key: 'stack',
   get: ({ get }) => {
     const dims = get(dimensions)
-    const cs = get(components)
+    const cs = get(elements)
       .filter((c) => c.z_position <= dims.z_max)
       .sort((a, b) => a.z_position - b.z_position)
     
@@ -89,7 +89,7 @@ export const stack = selector<StackElement[]>({
       }]
     }
 
-    const result: StackElement[] = []
+    const result: StackItem[] = []
     if (cs[0].z_position > 0) {
       result.push({
         power: 0,
