@@ -6,10 +6,10 @@ import {
   rayPropagation,
 } from './store'
 import { Stage, Layer, Rect, Line } from 'react-konva';
-import RenderedComponent from './RenderedComponent';
+import RenderedElement from './RenderedElement';
 
-const CANVAS_WIDTH = window.innerWidth - 36
-const CANVAS_HEIGHT = 400
+export const CANVAS_WIDTH = window.innerWidth - 36
+export const CANVAS_HEIGHT = 400
 
 const Diagram = () => {
   const [cmp] = useRecoilState(components)
@@ -29,7 +29,7 @@ const Diagram = () => {
           strokeWidth={2}
           dash={[15, 10]}
         />
-        {cmp.map((c) => <RenderedComponent 
+        {cmp.map((c) => <RenderedElement 
                           key={c.name}
                           power={c.power} 
                           height={y2c(c.y_height * 2)} 

@@ -33,12 +33,6 @@ export const dimensions = atom({
 export const components = atom<Component[]>({
   key: 'components',
   default: [
-    // {
-    //   z_position: 0,
-    //   y_height: 100,
-    //   power: 0,
-    //   name: 'object',
-    // },
     {
       z_position: 500,
       y_height: 50,
@@ -47,8 +41,8 @@ export const components = atom<Component[]>({
     },
     {
       z_position: 250,
-      y_height: 50,
-      power: -0.004,
+      y_height: 30,
+      power: 0,
       name: 'lens2',
     },
   ],
