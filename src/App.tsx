@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <div>
-        Thin Lens Paraxial Ray Trace
+        <a href='https://en.wikipedia.org/wiki/Thin_lens'>Thin Lens</a> <a href='https://en.wikipedia.org/wiki/Paraxial_approximation'>Paraxial</a> Ray Trace (<a href='https://www.ledcoyote.com'>home</a>)
         <DimensionInput />
       </div>
       <Diagram />
