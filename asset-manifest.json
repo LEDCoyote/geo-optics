@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/optics-simple-raytrace/static/css/main.31d6cfe0.css",
+    "main.js": "/optics-simple-raytrace/static/js/main.9a341bd6.js",
+    "index.html": "/optics-simple-raytrace/index.html",
+    "main.9a341bd6.js.map": "/optics-simple-raytrace/static/js/main.9a341bd6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.9a341bd6.js"
+  ]
+}
